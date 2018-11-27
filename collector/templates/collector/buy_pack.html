@@ -1,0 +1,45 @@
+{% extends "base_collect.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="display-4" style="text-align:center">Buy Cards</h1>
+    <br />
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card h-20">
+                <div class="card-body">
+                    <h5 class="card-title">Buy a Specific Card</h5>
+                    <p class="card-text">Know what card you want and have the coins to buy it?</p>
+                    <div style="text-align:center">
+                        <a href="#" class="btn btn-primary">Buy Specific (100 coins)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Buy a Card Pack</h5>
+                    <p class="card-text">Want 5 random cards of varying rarity (may include duplicates)?</p>
+                    <div style="text-align:center">
+                        <a href="#" class="btn btn-primary">Buy Pack (100 coins)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Buy a Rare Card Pack</h5>
+                    <p class="card-text">Want 5 random cards guaranteed to be rare and up?</p>
+                    <div style="text-align:center">
+                        <a href="#" class="btn btn-primary">Buy Rare Pack (200 coins)</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

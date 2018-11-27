@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.username == comment.author.name %}
+        <div class="container">
+            <form action="{% url 'blog:editcomment' comment.id %}" method="post">
+            {% csrf_token %}
+                <div class="form_group">
+                    <label for="body">Comment:</label>
+                    <textarea type="text" name="body" class="form-control">{{ form.body.value }}</textarea>
+                </div>
+                <br />
+                <div style="text-align:center;">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="alert alert-secondary" role="alert">
+                <p style="text-align:center">You don't have permission to edit this comment.</p>
+            </div>
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

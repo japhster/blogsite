@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="container">
+    <form action="{% url 'blog:create' %}" method="post">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="title">{{ form.title.label_tag }}</label>
+            <input type="text" name="title" class="form-control" placeholder="Enter Title"/>
+        </div>
+        <div class="form_group">
+            <label for="body">{{ form.body.label_tag }}</label>
+            <textarea type="text" name="body" class="form-control" placeholder="Enter Body..."></textarea>
+        </div>
+        <br />
+        <div style="text-align:center;">
+            <button type="submit" class="btn btn-primary">Post</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

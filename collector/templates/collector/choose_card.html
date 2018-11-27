@@ -1,0 +1,27 @@
+{% extends "base_collect.html" %}
+
+{% block content %}
+{% if cards %}
+<div class="container" align="center">
+    <table class="table table-sm table-striped fixed-width">
+        <thead>
+            <th colspan=2><a class="nav-link center" href="{% url 'collector:buy_card' %}">Buy Card ({{ collector.coins }} coins)</a></th>
+            <tr>
+                <th scope="col">Card Name</th>
+                <th scope="col">Card Rarity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for card in cards %}
+                <tr>
+                    <td><a href="{% url 'collector:card' card.pk %}">{{ card.name }}</a></td>
+                    <td>{{ card.get_rarity_display }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>  
+<div>
+{% else %}
+    <p style="text-align:center"> No Cards are available.</p>
+{% endif %}
+{% endblock %}

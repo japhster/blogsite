@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if blogposts %}
+<div class="container" align="center">
+    <table class="table table-sm table-striped fixed-width">
+        <thead>
+            <th colspan=3><a class="nav-link center" href="{% url 'blog:new' %}">+ new post</a></th>
+            <tr>
+                <th scope="col">Post Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Last Edited</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blogpost in blogposts %}
+                <tr>
+                    <td><a href="{% url 'blog:blogpost' blogpost.pk %}">{{ blogpost.title }}</a></td>
+                    <td>{{ blogpost.author }}</td>
+                    <td>{{ blogpost.pub_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>  
+<div>
+{% else %}
+    <p style="text-align:center"> No blogposts are available.</p>
+{% endif %}
+{% endblock %}

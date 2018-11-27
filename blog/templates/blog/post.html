@@ -1,0 +1,77 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="display-4">{{ blogpost.title }}</h1>
+    <p>Posted by {{ blogpost.author.name }} last edited {{ blogpost.format_published }}</p>
+    <hr class="my-4">
+    <p>{{ body | safe }}</p>
+    <hr class="my-4">
+</div>
+<div class="container">
+    <h3>
+    Comments:
+    <button style="float:right" class="btn btn-link" type="button" data-toggle="collapse" data-target="#addcomment" aria-expanded="false" aria-controls="collapseExample">
+        Add comment
+    </button>
+    </h3>
+    <div class="collapse" id="addcomment">
+        <div class="card card-body">
+            <form action="{% url 'blog:comment' blogpost.id %}" method="post">
+            {% csrf_token %}
+                <div class="form-group">
+                    <label for="body">Enter Comment:</label>
+                    <textarea type="text" name="body" class="form-control" placeholder="Comment..."></textarea>
+                </div>
+                <br />
+                <div style="text-align:center;">
+                    <button type="submit" class="btn btn-primary">Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% for comment in comments %}
+    <hr class="my-4">
+    <p>{{ comment.body }}</p>
+    {% if user.is_authenticated %}
+        {% if user.username == comment.author.name %}
+            <p>Posted by You ({{ comment.format_published }})</p>
+            <!-- edit and delete links -->    
+            <p>
+                <a class="btn btn-link" data-toggle="collapse" href="#editcomment{{ comment.id }}" role="button" aria-expanded="false" aria-controls="editcomment{{ comment.id }}">edit</a> | 
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#deletecomment{{ comment.id }}" aria-expanded="false" aria-controls="deletecomment{{ comment.id }}">delete</button>
+            </p>
+            <div class="collapse" id="editcomment{{ comment.id }}">
+                <div class="card card-body" style="border:none;">
+                    <div class="container">
+                        <form action="{% url 'blog:editcomment' comment.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="form_group">
+                                <label for="body">Comment:</label>
+                                <textarea rows=5 type="text" name="body" class="form-control">{{ comment.body }}</textarea>
+                            </div>
+                            <br />
+                            <div style="text-align:center;">
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="collapse" id="deletecomment{{ comment.id }}">
+                <div class="card card-body" style="border:none;">
+                    <form action="{% url 'blog:deletedcomment' comment.id %}" method="post">
+                        {% csrf_token %}
+                        <div style="text-align:center;">
+                            <button type="submit" class="btn btn-danger">Delete Comment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% else %}
+            <p>Posted by {{ comment.author }} ({{ comment.format_published }})</p>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

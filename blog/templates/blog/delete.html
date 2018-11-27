@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+    <p>post {{ blogpost.title }} has been deleted.</p>
+    <form action="{% url 'blog:create' %}" method="post">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="title">{{ form.title.label_tag }}</label>
+            <input type="hidden" name="title" class="form-control" value="{{ blogpost.title }}"/>
+        </div>
+        <div class="form_group">
+            <label for="body">{{ form.body.label_tag }}</label>
+            <textarea type="hidden" name="body" class="form-control">{{ blogpost.body }}<textarea>
+        </div>
+        <br />
+        <div style="text-align:center;">
+            <button type="submit" class="btn btn-link">undo</button>
+        </div>
+    </form>
+    
+
+{% endblock %}

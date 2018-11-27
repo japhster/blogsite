@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if comments %}
+<div class="container" align="center">
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Post Title</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Commented</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+                <tr>
+                    <td><a href="{% url 'blog:blogpost' comment.post.id %}">{{ comment.post.title }}</a></td>
+                    <td>{{ comment.body | truncatechars:50 }}</td>
+                    <td>{{ comment.pub_date }}</td>                    
+                    <td><a href="{% url 'blog:editcomment' comment.pk %}">edit</a></td>
+                    <td><a href="{% url 'blog:deletedcomment' comment.pk %}">delete</a></td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>  
+<div>
+{% else %}
+    <p style="text-align:center"> You haven't commented on any posts.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+table.fixed-width {
+    margin-left: auto;
+    margin-right: auto;
+    table-layout:fixed;
+}
+
+.borderbottom {
+    border-bottom: 1px solid black;
+}
+
+.bordertop {
+    border-top: 1px solid black;
+}
+
+.center {
+    text-align: center;
+}
+
+.container {
+    width: 50%;
+}

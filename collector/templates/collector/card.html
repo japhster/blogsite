@@ -1,0 +1,27 @@
+{% extends "base_collect.html" %}
+{% load collector_extras %}
+
+{% block content %}
+
+{% if card %}
+    <div class="container">
+        <h1 class="display-4">{{ card.name }}</h1>
+        <p>Rarity: {{ card.get_rarity_display }}</p>
+        <p>Owned:
+            {% if is_owned %}
+            Yes
+            {% else %}
+            No
+            <a style="float:right" href="{% url 'collector:buy_card' card.id %}">Buy Card</a>
+            {% endif %}
+        </p>
+        <hr class="my-4">
+        <p>{{ card.description }}</p>
+    </div>
+{% else %}
+    <div class="container">
+        <p>Couldn't find card.</p>
+    </div>
+{% endif %}
+
+{% endblock %}

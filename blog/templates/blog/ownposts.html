@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if blogposts %}
+<div class="container" align="center">
+    <table class="table table-sm table-striped">
+        <thead>
+            <th colspan=4><a class="nav-link center" href="{% url 'blog:new' %}">+ new post</a></th>
+            <tr>
+                <th scope="col">Post Title</th>
+                <th scope="col">Last Edited</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blogpost in blogposts %}
+                <tr>
+                    <td><a href="{% url 'blog:blogpost' blogpost.pk %}">{{ blogpost.title }}</a></td>
+                    <td>{{ blogpost.pub_date }}</td>                    
+                    <td><a href="{% url 'blog:edit' blogpost.pk %}">edit</a></td>
+                    <td><a href="{% url 'blog:deleted' blogpost.pk %}">delete</a></td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>  
+<div>
+{% else %}
+    <p style="text-align:center"> No blogposts are available.</p>
+{% endif %}
+{% endblock %}

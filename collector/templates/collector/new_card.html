@@ -1,0 +1,32 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div class="container">
+    <form action="{% url 'collector:create' %}" method="post">
+    {% csrf_token %}
+        <div class="form-group">
+            <label for="name">{{ form.name.label_tag }}</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter Card Name..."/>
+        </div>
+        <div class="form_group">
+            <label for="rarity">{{ form.rarity.label_tag }}</label>
+            <select class="custom-select" name="rarity">
+                {% for choice in form.rarity.field.choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <br />
+        <div class="form_group">
+            <label for="description">{{ form.description.label_tag }}</label>
+            <textarea type="text" name="description" class="form-control" placeholder="Enter Card Description..."></textarea>
+        </div>
+        <br />
+        <div style="text-align:center;">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
